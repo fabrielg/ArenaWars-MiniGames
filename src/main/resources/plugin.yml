@@ -1,0 +1,12 @@
+name: ArenaWars
+version: '${project.version}'
+main: me.aqua_tuor.arenawars.ArenaWars
+api-version: 1.18
+description: A plugin for a Minecraft server
+author: Aqua_Tuor
+commands:
+  start:
+    description: Start the game
+    usage: /start
+    permission: arenawars.start
+    permission-message: You do not have permission to start the game
