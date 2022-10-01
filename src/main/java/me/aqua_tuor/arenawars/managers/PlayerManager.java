@@ -1,31 +1,56 @@
 package me.aqua_tuor.arenawars.managers;
 
+import me.aqua_tuor.arenawars.kits.Kit;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
+
 public class PlayerManager {
 
     private final GameManager gameManager;
+    private HashMap<Player, Kit> playerKits;
 
-    public PlayerManager(GameManager gameManager) {
+    public PlayerManager(GameManager gameManager, HashMap<Player, Kit> playerKits) {
         this.gameManager = gameManager;
+        this.playerKits = playerKits;
+    }
+
+    public HashMap<Player, Kit> getPlayerKits() {
+        return playerKits;
+    }
+
+    public void addPlayerKit(Player player, Kit kit) {
+        if (playerKits.containsKey(player)) {
+            playerKits.replace(player, kit);
+        } else {
+            playerKits.put(player, kit);
+        }
+    }
+
+    public boolean giveKit(Player player, String kitName) {
+        HashMap<String, Kit> kits = gameManager.getKitManager().getKits();
+        if (kits.containsKey(kitName) && playerKits.containsKey(player) && player.getGameMode() == GameMode.SURVIVAL) {
+            player.getInventory().clear();
+            Kit kit = kits.get(kitName);
+            for (int slot : kit.getItems().keySet()) {
+                ItemStack itemStack = kit.getItems().get(slot);
+                player.getInventory().setItem(slot, itemStack);
+            }
+            player.getInventory().setArmorContents(kit.getArmor());
+            return true;
+        }
+        return false;
     }
 
     public void giveKits() {
-        System.out.println("Giving kits...");
-        Bukkit.getOnlinePlayers().stream().filter(player -> player.getGameMode() == GameMode.SURVIVAL).forEach(this::giveKit);
-    }
-
-    public void giveKit(Player player) {
-        System.out.println("Giving kit to " + player.getName());
-        player.getInventory().clear();
-        player.getInventory().setArmorContents(null);
-        player.getInventory().setItem(0, new ItemStack(Material.STONE_SWORD));
-        player.getInventory().setItem(1, new ItemStack(Material.STONE_PICKAXE));
-        player.getInventory().setItem(2, new ItemStack(Material.STONE, 64));
+        for (Player player : playerKits.keySet()) {
+            System.out.println(playerKits);
+            giveKit(player, playerKits.get(player).getName());
+        }
     }
 
 

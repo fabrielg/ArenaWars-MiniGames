@@ -4,6 +4,7 @@ import me.aqua_tuor.arenawars.commands.KitsCommand;
 import me.aqua_tuor.arenawars.commands.StartCommand;
 import me.aqua_tuor.arenawars.listeners.BlockBreakListener;
 import me.aqua_tuor.arenawars.listeners.BlockPlaceListener;
+import me.aqua_tuor.arenawars.listeners.PlayerInteractGuiKitsListener;
 import me.aqua_tuor.arenawars.listeners.PlayerJoinQuitListener;
 import me.aqua_tuor.arenawars.managers.GameManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,7 +26,8 @@ public final class ArenaWars extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new BlockBreakListener(gameManager), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(gameManager), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(gameManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractGuiKitsListener(gameManager), this);
 
         // Command Start
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand(gameManager));

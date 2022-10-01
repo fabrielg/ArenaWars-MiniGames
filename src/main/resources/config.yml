@@ -1,13 +1,11 @@
 kits:
   Barbarian:
-    name: "§cBarbarian"
+    name: "Barbarian"
     icon: "DIAMOND_SWORD"
     items:
-      - "DIAMOND_HELMET,1"
-      - "DIAMOND_CHESTPLATE,1"
-      - "DIAMOND_LEGGINGS,1"
-      - "DIAMOND_BOOTS,1"
-      - "DIAMOND_SWORD,1"
-      - "DIAMOND_AXE,1"
-      - "DIAMOND_PICKAXE,1"
-      - "DIAMOND_SHOVEL,1"
+      - "DIAMOND_SWORD,1,0"
+    armor:
+      helmet: "DIAMOND_HELMET"
+      chestplate: "DIAMOND_CHESTPLATE"
+      leggings: "DIAMOND_LEGGINGS"
+      boots: "DIAMOND_BOOTS"

@@ -2,7 +2,11 @@ package me.aqua_tuor.arenawars.managers;
 
 import jdk.internal.org.jline.reader.ConfigurationPath;
 import me.aqua_tuor.arenawars.ArenaWars;
+import me.aqua_tuor.arenawars.kits.Kit;
 import me.aqua_tuor.arenawars.tasks.GameStartCountdownTask;
+import org.bukkit.entity.Player;
+
+import java.util.HashMap;
 
 public class GameManager {
 
@@ -18,8 +22,7 @@ public class GameManager {
     public GameManager(ArenaWars plugin) {
         this.plugin = plugin;
         this.blockManager = new BlockManager(this);
-        this.playerManager = new PlayerManager(this);
-        this.playerManager = new PlayerManager(this);
+        this.playerManager = new PlayerManager(this, new HashMap<Player, Kit>());
         this.kitManager = new KitManager(this);
     }
 
