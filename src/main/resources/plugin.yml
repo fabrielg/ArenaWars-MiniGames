@@ -10,3 +10,9 @@ commands:
     usage: /start
     permission: arenawars.start
     permission-message: You do not have permission to start the game
+
+  kits:
+    description: List all kits
+    usage: /kits
+    permission: arenawars.kits
+    permission-message: You do not have permission to list kits

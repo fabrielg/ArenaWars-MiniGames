@@ -1,7 +1,7 @@
 package me.aqua_tuor.arenawars.tasks;
 
-import me.aqua_tuor.arenawars.manager.GameManager;
-import me.aqua_tuor.arenawars.manager.GameState;
+import me.aqua_tuor.arenawars.managers.GameManager;
+import me.aqua_tuor.arenawars.managers.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 

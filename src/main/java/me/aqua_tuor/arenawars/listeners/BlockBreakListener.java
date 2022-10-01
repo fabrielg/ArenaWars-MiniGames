@@ -1,6 +1,6 @@
 package me.aqua_tuor.arenawars.listeners;
 
-import me.aqua_tuor.arenawars.manager.GameManager;
+import me.aqua_tuor.arenawars.managers.GameManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;

@@ -1,8 +1,8 @@
-package me.aqua_tuor.arenawars.manager;
+package me.aqua_tuor.arenawars.managers;
 
+import jdk.internal.org.jline.reader.ConfigurationPath;
 import me.aqua_tuor.arenawars.ArenaWars;
 import me.aqua_tuor.arenawars.tasks.GameStartCountdownTask;
-import org.bukkit.entity.Player;
 
 public class GameManager {
 
@@ -11,6 +11,7 @@ public class GameManager {
     private BlockManager blockManager;
     private PlayerManager playerManager;
     private GameStartCountdownTask gameStartCountdownTask;
+    private KitManager kitManager;
 
     public String prefix = "§8[§6ArenaWars§8]§r ";
 
@@ -19,6 +20,7 @@ public class GameManager {
         this.blockManager = new BlockManager(this);
         this.playerManager = new PlayerManager(this);
         this.playerManager = new PlayerManager(this);
+        this.kitManager = new KitManager(this);
     }
 
     public void setGameState(GameState gameState) {
@@ -58,8 +60,15 @@ public class GameManager {
         return gameStartCountdownTask;
     }
 
+    public KitManager getKitManager() {
+        return kitManager;
+    }
+
     public String getPrefix() {
         return prefix;
     }
 
+    public ArenaWars getPlugin() {
+        return plugin;
+    }
 }

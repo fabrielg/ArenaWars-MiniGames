@@ -1,4 +1,4 @@
-package me.aqua_tuor.arenawars.manager;
+package me.aqua_tuor.arenawars.managers;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
