@@ -7,12 +7,14 @@ import java.util.HashMap;
 public class Kit {
 
     private String name;
+    private String displayName;
     private String icon;
     private HashMap<Integer, ItemStack> items;
     private ItemStack[] armor;
 
-    public Kit(String name, String icon, HashMap<Integer, ItemStack> items, ItemStack[] armor) {
+    public Kit(String name, String displayName, String icon, HashMap<Integer, ItemStack> items, ItemStack[] armor) {
         this.name = name;
+        this.displayName = displayName;
         this.icon = icon;
         this.items = items;
         this.armor = armor;
@@ -21,6 +23,11 @@ public class Kit {
     /** @return name of the kit */
     public String getName() {
         return name;
+    }
+
+    /** @return display name of the kit */
+    public String getDisplayName() {
+        return displayName;
     }
 
     /** @return icon of the kit */

@@ -1,6 +1,6 @@
 kits:
   Barbarian:
-    name: "Barbarian"
+    displayname: "§cBarbarian"
     icon: "DIAMOND_SWORD"
     items:
       - "DIAMOND_SWORD,1,0"
@@ -11,7 +11,7 @@ kits:
       boots: "DIAMOND_BOOTS"
 
   Archer:
-    name: "Archer"
+    displayname: "§eArcher"
     icon: "BOW"
     items:
       - "BOW,1,1"

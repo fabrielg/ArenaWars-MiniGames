@@ -29,6 +29,7 @@ public class KitManager {
         for (String kitName : kitsConfig.getKeys(false)) {
             ConfigurationSection currentKitConfig = kitsConfig.getConfigurationSection(kitName);
             String icon = currentKitConfig.getString("icon");
+            String displayName = currentKitConfig.getString("displayname");
             HashMap<Integer, ItemStack> items = new HashMap<>();
 
             // Add items to kit
@@ -47,7 +48,7 @@ public class KitManager {
             armor[0] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.boots")));
 
             // Create kit and add to kits
-            Kit kit = new Kit(kitName, icon, items, armor);
+            Kit kit = new Kit(kitName, displayName, icon, items, armor);
             kits.put(kitName, kit);
         }
 
@@ -61,7 +62,7 @@ public class KitManager {
         for (Kit kit : kits.values()) {
             ItemStack itemStack = new ItemStack(Material.getMaterial(kit.getIcon()));
             ItemMeta itemMeta = itemStack.getItemMeta();
-            itemMeta.setDisplayName("§r" + kit.getName());
+            itemMeta.setDisplayName("§r" + kit.getDisplayName());
             itemStack.setItemMeta(itemMeta);
             inventory.addItem(itemStack);
         }
@@ -74,6 +75,15 @@ public class KitManager {
 
     public Kit getKit(String name) {
         return kits.get(name);
+    }
+
+    public Kit getKit(ItemStack icon) {
+        for (Kit kit : kits.values()) {
+            if (icon.getType() == Material.getMaterial(kit.getIcon())) {
+                return kit;
+            }
+        }
+        return null;
     }
 
     public HashMap<String, Kit> getKits() {
