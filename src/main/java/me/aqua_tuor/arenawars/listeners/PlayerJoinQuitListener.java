@@ -1,6 +1,7 @@
 package me.aqua_tuor.arenawars.listeners;
 
 import me.aqua_tuor.arenawars.managers.GameManager;
+import me.aqua_tuor.arenawars.managers.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,11 +23,12 @@ public class PlayerJoinQuitListener implements Listener {
         event.setJoinMessage(null);
 
         Player player = event.getPlayer();
-        Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
-        gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Barbarian"));
+        gameManager.getPlayerManager().setPlayerState(player, gameManager.getGameState());
 
-        // Teleport player to lobby location
-        player.teleport(gameManager.getArenaManager().getArena().getLobby());
+        if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
+            Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
+            gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Barbarian"));
+        }
     }
 
     @EventHandler
@@ -35,7 +37,9 @@ public class PlayerJoinQuitListener implements Listener {
         event.setQuitMessage(null);
 
         Player player = event.getPlayer();
-        Bukkit.broadcastMessage("§6" + player.getName() + " §eleft the game! §8(§6" + (Bukkit.getOnlinePlayers().size() - 1) + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
+        if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
+            Bukkit.broadcastMessage("§6" + player.getName() + " §eleft the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
+        }
         gameManager.getPlayerManager().getPlayerKits().remove(player);
     }
 

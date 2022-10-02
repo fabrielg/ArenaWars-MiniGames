@@ -4,6 +4,7 @@ import jdk.internal.org.jline.reader.ConfigurationPath;
 import me.aqua_tuor.arenawars.ArenaWars;
 import me.aqua_tuor.arenawars.kits.Kit;
 import me.aqua_tuor.arenawars.tasks.GameStartCountdownTask;
+import me.aqua_tuor.arenawars.tasks.GameTeleportingCountdownTask;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class GameManager {
     private ArenaManager arenaManager;
 
     private GameStartCountdownTask gameStartCountdownTask;
+    private GameTeleportingCountdownTask gameTeleportingCountdownTask;
 
     public String prefix = "§8[§6ArenaWars§8]§r ";
 
@@ -34,16 +36,26 @@ public class GameManager {
         this.gameState = gameState; // set the game state
         switch (gameState) {
             case LOBBY:
-                // TODO: Cancel player log in
                 break;
             case STARTING:
-                // TODO: Start the game (countdown)
                 this.gameStartCountdownTask = new GameStartCountdownTask(this);
                 this.gameStartCountdownTask.runTaskTimer(plugin, 0, 20);
                 break;
-            case INGAME:
-                // TODO: Teleport players to the arena and give their kits
+            case TELEPORTING:
+                // Teleport players to the arena and give their kits
+                this.getPlayerManager().teleportPlayersToArena();
                 this.getPlayerManager().giveKits();
+
+                // Send title to all players
+                for (Player player : this.getPlayerManager().getPlayerKits().keySet()) {
+                    player.sendTitle("§6Teleporting...", "§7Be ready for battle in §e§l15 seconds§7", 10, 70, 20);
+                }
+
+                this.gameTeleportingCountdownTask = new GameTeleportingCountdownTask(this);
+                this.gameTeleportingCountdownTask.runTaskTimer(plugin, 0, 20);
+                break;
+            case INGAME:
+                // TODO: ...
                 break;
             case WON:
                 // TODO: End the game and teleport players back to the lobby
@@ -80,5 +92,9 @@ public class GameManager {
 
     public ArenaWars getPlugin() {
         return plugin;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 }

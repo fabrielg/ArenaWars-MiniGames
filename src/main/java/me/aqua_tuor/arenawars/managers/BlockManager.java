@@ -13,7 +13,7 @@ public class BlockManager {
 
     public BlockManager(GameManager gameManager) {
         this.gameManager = gameManager;
-        this.allowedBlocks.add(Material.STONE);
+        this.allowedBlocks.add(Material.SPONGE);
     }
 
     public boolean isAllowed(Block block) {

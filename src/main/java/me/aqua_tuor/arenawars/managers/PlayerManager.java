@@ -1,11 +1,11 @@
 package me.aqua_tuor.arenawars.managers;
 
 import me.aqua_tuor.arenawars.kits.Kit;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 
@@ -53,5 +53,45 @@ public class PlayerManager {
         }
     }
 
+    public void teleportPlayersToArena() {
+        for (Player player: playerKits.keySet()) {
+            player.teleport(gameManager.getArenaManager().getArena().getSpawn());
+        }
+    }
+
+    public void giveLobbyItems(Player player) {
+        if (player.getGameMode() != GameMode.CREATIVE) {
+            player.getInventory().clear();
+            ItemStack netherStar = new ItemStack(Material.NETHER_STAR);
+            ItemMeta netherStarMeta = netherStar.getItemMeta();
+            netherStarMeta.setDisplayName("§6Kit Selector");
+            netherStar.setItemMeta(netherStarMeta);
+            player.getInventory().setItem(4, netherStar);
+        }
+    }
+
+    public void giveSpectatorItems(Player player) {
+        if (player.getGameMode() != GameMode.CREATIVE) {
+            player.getInventory().clear();
+            ItemStack compass = new ItemStack(Material.COMPASS);
+            ItemMeta compassMeta = compass.getItemMeta();
+            compassMeta.setDisplayName("§6Spectator Selector");
+            compass.setItemMeta(compassMeta);
+            player.getInventory().setItem(4, compass);
+        }
+    }
+
+    public void setPlayerState(Player player, GameState gameState) {
+        if (gameState == GameState.LOBBY || gameState == GameState.STARTING) {
+            giveLobbyItems(player);
+            player.teleport(gameManager.getArenaManager().getArena().getLobby());
+            player.setGameMode(GameMode.SURVIVAL);
+        } else {
+            giveSpectatorItems(player);
+            player.teleport(gameManager.getArenaManager().getArena().getSpawn());
+            player.setGameMode(GameMode.SPECTATOR);
+        }
+
+    }
 
 }

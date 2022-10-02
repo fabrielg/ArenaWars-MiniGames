@@ -26,7 +26,7 @@ kits:
 arena:
   name: "Arena"
   world: "world"
-  spawn: "-618,4,-708,0.0,0.0"
+  spawn: "-707.5,4,-618,0.0,0.0"
   lobby: "-707.5,10,-653.5,0.0,0.0"
   region:
       min: "-824,0,-520"

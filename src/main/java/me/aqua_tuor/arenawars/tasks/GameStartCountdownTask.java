@@ -19,12 +19,15 @@ public class GameStartCountdownTask extends BukkitRunnable {
     public void run() {
         if (timer <= 0) {
             cancel();
-            gameManager.setGameState(GameState.INGAME);
+            gameManager.setGameState(GameState.TELEPORTING);
+            if (timer == 0) {
+                Bukkit.broadcastMessage(gameManager.prefix + "§aTeleporting ... Get ready for battle!");
+            }
             return;
         }
 
         if (timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1) {
-            Bukkit.broadcastMessage(gameManager.prefix + "The game will start in " + timer + " seconds!");
+            Bukkit.broadcastMessage(gameManager.prefix + "You will be teleported in " + timer + " seconds!");
         }
 
         timer--;

@@ -17,7 +17,7 @@ public class BlockPlaceListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!gameManager.getBlockManager().isAllowed(event.getBlock()) && !event.getPlayer().getGameMode().name().equals("CREATIVE")) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage("You can't place this block!");
+            event.getPlayer().sendMessage(gameManager.getPrefix() + "You can't place this block!");
         }
     }
 
