@@ -41,6 +41,9 @@ public class KitManager {
             Kit kit = new Kit(kitName, icon, items, armor);
             kits.put(kitName, kit);
         }
+        this.kits = kits;
+        System.out.println("Loaded " + kits.size() + " kits");
+        System.out.println(kits);
     }
 
     public Inventory getKitGui() {
@@ -57,6 +60,10 @@ public class KitManager {
 
     public void openKitGUI(Player player) {
         player.openInventory(getKitGui());
+    }
+
+    public Kit getKit(String name) {
+        return kits.get(name);
     }
 
     public HashMap<String, Kit> getKits() {

@@ -23,7 +23,7 @@ public class PlayerJoinQuitListener implements Listener {
 
         Player player = event.getPlayer();
         Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
-        gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKits().get("Barbarian"));
+        gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Barbarian"));
 
         // Teleport player to lobby location
         player.teleport(gameManager.getArenaManager().getArena().getLobby());
