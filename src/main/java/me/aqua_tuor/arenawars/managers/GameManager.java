@@ -14,8 +14,10 @@ public class GameManager {
     public GameState gameState = GameState.LOBBY;
     private BlockManager blockManager;
     private PlayerManager playerManager;
-    private GameStartCountdownTask gameStartCountdownTask;
     private KitManager kitManager;
+    private ArenaManager arenaManager;
+
+    private GameStartCountdownTask gameStartCountdownTask;
 
     public String prefix = "§8[§6ArenaWars§8]§r ";
 
@@ -24,6 +26,7 @@ public class GameManager {
         this.blockManager = new BlockManager(this);
         this.playerManager = new PlayerManager(this, new HashMap<Player, Kit>());
         this.kitManager = new KitManager(this);
+        this.arenaManager = new ArenaManager(this);
     }
 
     public void setGameState(GameState gameState) {
@@ -65,6 +68,10 @@ public class GameManager {
 
     public KitManager getKitManager() {
         return kitManager;
+    }
+
+    public ArenaManager getArenaManager() {
+        return arenaManager;
     }
 
     public String getPrefix() {

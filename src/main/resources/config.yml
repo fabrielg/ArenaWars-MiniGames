@@ -9,3 +9,12 @@ kits:
       chestplate: "DIAMOND_CHESTPLATE"
       leggings: "DIAMOND_LEGGINGS"
       boots: "DIAMOND_BOOTS"
+
+arena:
+  name: "Arena"
+  world: "world"
+  spawn: "-618,4,-708,0.0,0.0"
+  lobby: "-707.5,10,-653.5,0.0,0.0"
+  region:
+      min: "-824,0,-520"
+      max: "-593,64,-716"

@@ -19,10 +19,10 @@ public class KitManager {
     public KitManager(GameManager gameManager) {
         this.kitsConfig = gameManager.getPlugin().getConfig().getConfigurationSection("kits");
         this.gameManager = gameManager;
-        this.kits = loadKits();
+        loadKits();
     }
 
-    public HashMap<String, Kit> loadKits() {
+    public void loadKits() {
         HashMap<String, Kit> kits = new HashMap<>();
         for (String kitName : kitsConfig.getKeys(false)) {
             String icon = kitsConfig.getString(kitName + ".icon");
@@ -41,7 +41,6 @@ public class KitManager {
             Kit kit = new Kit(kitName, icon, items, armor);
             kits.put(kitName, kit);
         }
-        return kits;
     }
 
     public Inventory getKitGui() {
