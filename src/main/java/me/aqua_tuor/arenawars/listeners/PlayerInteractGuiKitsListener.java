@@ -18,10 +18,10 @@ public class PlayerInteractGuiKitsListener implements Listener {
     @EventHandler
     public void onPlayerClickKit(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        event.setCancelled(true);
-        player.updateInventory();
         // Check if player's inventory is the kit inventory
         if (event.getView().getTitle().equals("Kits")) {
+            event.setCancelled(true);
+            player.updateInventory();
             // Check if player clicked on a kit
             if (event.getCurrentItem() != null && gameManager.getKitManager().getKits().containsKey(event.getCurrentItem().getItemMeta().getDisplayName())) {
 
@@ -30,7 +30,6 @@ public class PlayerInteractGuiKitsListener implements Listener {
                 gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit(event.getCurrentItem().getItemMeta().getDisplayName()));
             }
         }
-        player.updateInventory();
     }
 
 
