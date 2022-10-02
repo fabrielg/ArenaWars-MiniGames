@@ -21,12 +21,15 @@ public final class ArenaWars extends JavaPlugin {
 
         this.saveDefaultConfig();
 
+        // Listeners
         getServer().getPluginManager().registerEvents(new BlockBreakListener(gameManager), this);
         getServer().getPluginManager().registerEvents(new BlockPlaceListener(gameManager), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinQuitListener(gameManager), this);
         getServer().getPluginManager().registerEvents(new PlayerInteractGuiKitsListener(gameManager), this);
         getServer().getPluginManager().registerEvents(new PlayerDropItemsListener(gameManager), this);
         getServer().getPluginManager().registerEvents(new PlayerInventoryInteractListener(gameManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerDamageListener(gameManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(gameManager), this);
 
         // Command Start
         Objects.requireNonNull(getCommand("start")).setExecutor(new StartCommand(gameManager));

@@ -86,6 +86,11 @@ public class PlayerManager {
             giveLobbyItems(player);
             player.teleport(gameManager.getArenaManager().getArena().getLobby());
             player.setGameMode(GameMode.SURVIVAL);
+            player.updateInventory();
+            player.setLevel(0);
+            player.setExp(0);
+            player.setHealth(20);
+            player.setFoodLevel(20);
         } else {
             giveSpectatorItems(player);
             player.teleport(gameManager.getArenaManager().getArena().getSpawn());
