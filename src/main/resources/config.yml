@@ -10,6 +10,19 @@ kits:
       leggings: "DIAMOND_LEGGINGS"
       boots: "DIAMOND_BOOTS"
 
+  Archer:
+    name: "Archer"
+    icon: "BOW"
+    items:
+      - "BOW,1,1"
+      - "ARROW,64,2"
+      - "STONE_SWORD,1,0"
+    armor:
+      helmet: "LEATHER_HELMET"
+      chestplate: "IRON_CHESTPLATE"
+      leggings: "LEATHER_LEGGINGS"
+      boots: "IRON_BOOTS"
+
 arena:
   name: "Arena"
   world: "world"

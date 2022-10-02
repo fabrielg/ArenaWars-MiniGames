@@ -24,7 +24,6 @@ public class PlayerInteractGuiKitsListener implements Listener {
             player.updateInventory();
             // Check if player clicked on a kit
             if (event.getCurrentItem() != null && gameManager.getKitManager().getKits().containsKey(event.getCurrentItem().getItemMeta().getDisplayName())) {
-
                 player.closeInventory();
                 player.sendMessage(gameManager.getPrefix() + "§aYou have selected the §6" + event.getCurrentItem().getItemMeta().getDisplayName() + " §akit!");
                 gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit(event.getCurrentItem().getItemMeta().getDisplayName()));

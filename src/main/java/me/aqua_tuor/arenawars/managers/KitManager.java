@@ -24,23 +24,33 @@ public class KitManager {
 
     public void loadKits() {
         HashMap<String, Kit> kits = new HashMap<>();
+
+        // Loop through all kits in the config
         for (String kitName : kitsConfig.getKeys(false)) {
-            String icon = kitsConfig.getString(kitName + ".icon");
+            ConfigurationSection currentKitConfig = kitsConfig.getConfigurationSection(kitName);
+            String icon = currentKitConfig.getString("icon");
             HashMap<Integer, ItemStack> items = new HashMap<>();
-            for (String item : kitsConfig.getStringList(kitName + ".items")) {
+
+            // Add items to kit
+            for (String item : currentKitConfig.getStringList("items")) {
                 String[] itemSplit = item.split(",");
                 ItemStack itemStack = new ItemStack(Material.getMaterial(itemSplit[0]));
                 itemStack.setAmount(Integer.parseInt(itemSplit[1]));
                 items.put(Integer.parseInt(itemSplit[2]), itemStack);
             }
+
+            // Add armor to kit
             ItemStack[] armor = new ItemStack[4];
-            armor[3] = new ItemStack(Material.getMaterial(kitsConfig.getString(kitName + ".armor.helmet")));
-            armor[2] = new ItemStack(Material.getMaterial(kitsConfig.getString(kitName + ".armor.chestplate")));
-            armor[1] = new ItemStack(Material.getMaterial(kitsConfig.getString(kitName + ".armor.leggings")));
-            armor[0] = new ItemStack(Material.getMaterial(kitsConfig.getString(kitName + ".armor.boots")));
+            armor[3] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.helmet")));
+            armor[2] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.chestplate")));
+            armor[1] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.leggings")));
+            armor[0] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.boots")));
+
+            // Create kit and add to kits
             Kit kit = new Kit(kitName, icon, items, armor);
             kits.put(kitName, kit);
         }
+
         this.kits = kits;
         System.out.println("Loaded " + kits.size() + " kits");
         System.out.println(kits);
