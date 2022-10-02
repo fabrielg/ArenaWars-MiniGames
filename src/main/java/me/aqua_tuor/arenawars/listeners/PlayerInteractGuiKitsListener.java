@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PlayerInteractGuiKitsListener implements Listener {
 
@@ -19,15 +18,19 @@ public class PlayerInteractGuiKitsListener implements Listener {
     @EventHandler
     public void onPlayerClickKit(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (event.getInventory().equals(gameManager.getKitManager().getKitGui())) {
-            // Check if the player has clicked on a kit
-            if (event.getCurrentItem() != null || event.getCurrentItem().getType() != Material.AIR) {
-                event.setCancelled(true);
+        event.setCancelled(true);
+        player.updateInventory();
+        // Check if player's inventory is the kit inventory
+        if (event.getView().getTitle().equals("Kits")) {
+            // Check if player clicked on a kit
+            if (event.getCurrentItem() != null && gameManager.getKitManager().getKits().containsKey(event.getCurrentItem().getItemMeta().getDisplayName())) {
+
                 player.closeInventory();
-                player.sendMessage(gameManager.prefix + "You have selected the " + event.getCurrentItem().getItemMeta().getDisplayName() + "&r kit!");
+                player.sendMessage(gameManager.getPrefix() + "§aYou have selected the §6" + event.getCurrentItem().getItemMeta().getDisplayName() + " §akit!");
+                gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit(event.getCurrentItem().getItemMeta().getDisplayName()));
             }
         }
-
+        player.updateInventory();
     }
 
 
