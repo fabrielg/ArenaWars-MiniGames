@@ -26,8 +26,15 @@ public class PlayerJoinQuitListener implements Listener {
         gameManager.getPlayerManager().setPlayerState(player, gameManager.getGameState());
 
         if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
-            Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
+            Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + gameManager.getMaxPlayers() + "§8)");
             gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Barbarian"));
+        }
+
+        // Check if players count is enough to start the game
+        if (gameManager.getGameState() == GameState.LOBBY) {
+            if (Bukkit.getOnlinePlayers().size() >= gameManager.getMinPlayers()) {
+                gameManager.setGameState(GameState.STARTING);
+            }
         }
     }
 
@@ -38,7 +45,7 @@ public class PlayerJoinQuitListener implements Listener {
 
         Player player = event.getPlayer();
         if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
-            Bukkit.broadcastMessage("§6" + player.getName() + " §eleft the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + Bukkit.getMaxPlayers() + "§8)");
+            Bukkit.broadcastMessage("§6" + player.getName() + " §eleft the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + gameManager.getMaxPlayers() + "§8)");
         }
         gameManager.getPlayerManager().getPlayerKits().remove(player);
     }

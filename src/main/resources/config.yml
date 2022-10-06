@@ -1,3 +1,7 @@
+game:
+  max-players: 10
+  min-players: 2
+
 kits:
   Barbarian:
     displayname: "§cBarbarian"
@@ -22,7 +26,6 @@ kits:
       chestplate: "IRON_CHESTPLATE"
       leggings: "LEATHER_LEGGINGS"
       boots: "IRON_BOOTS"
-
 arena:
   name: "Arena"
   world: "world"

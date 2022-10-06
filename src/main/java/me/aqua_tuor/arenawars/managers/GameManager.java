@@ -21,6 +21,9 @@ public class GameManager {
     private GameStartCountdownTask gameStartCountdownTask;
     private GameTeleportingCountdownTask gameTeleportingCountdownTask;
 
+    private int maxPlayers;
+    private int minPlayers;
+
     public String prefix = "§8[§6ArenaWars§8]§r ";
 
     public GameManager(ArenaWars plugin) {
@@ -29,6 +32,8 @@ public class GameManager {
         this.playerManager = new PlayerManager(this, new HashMap<Player, Kit>());
         this.kitManager = new KitManager(this);
         this.arenaManager = new ArenaManager(this);
+        this.maxPlayers = plugin.getConfig().getInt("game.max-players");
+        this.minPlayers = plugin.getConfig().getInt("game.min-players");
     }
 
     public void setGameState(GameState gameState) {
@@ -92,6 +97,14 @@ public class GameManager {
 
     public ArenaWars getPlugin() {
         return plugin;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public int getMinPlayers() {
+        return minPlayers;
     }
 
     public GameState getGameState() {

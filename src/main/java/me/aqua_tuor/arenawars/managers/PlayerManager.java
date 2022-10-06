@@ -1,6 +1,7 @@
 package me.aqua_tuor.arenawars.managers;
 
 import me.aqua_tuor.arenawars.kits.Kit;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -82,7 +83,7 @@ public class PlayerManager {
     }
 
     public void setPlayerState(Player player, GameState gameState) {
-        if (gameState == GameState.LOBBY || gameState == GameState.STARTING) {
+        if (Bukkit.getOnlinePlayers().size() < gameManager.getMaxPlayers() && (gameState == GameState.LOBBY || gameState == GameState.STARTING)) {
             giveLobbyItems(player);
             player.teleport(gameManager.getArenaManager().getArena().getLobby());
             player.setGameMode(GameMode.SURVIVAL);
