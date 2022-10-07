@@ -5,9 +5,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class PlayerManager {
@@ -39,9 +41,24 @@ public class PlayerManager {
             Kit kit = kits.get(kitName);
             for (int slot : kit.getItems().keySet()) {
                 ItemStack itemStack = kit.getItems().get(slot);
+                // Set itemstack unbreakable and hide flags
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.setUnbreakable(true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+                itemStack.setItemMeta(itemMeta);
                 player.getInventory().setItem(slot, itemStack);
             }
-            player.getInventory().setArmorContents(kit.getArmor());
+            // Set armor unbreakable and hide flags
+            player.getInventory().setArmorContents(Arrays.stream(kit.getArmor()).map(itemStack -> {
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.setUnbreakable(true);
+                itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                itemMeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+                itemStack.setItemMeta(itemMeta);
+                return itemStack;
+            }).toArray(ItemStack[]::new));
+
             return true;
         }
         return false;
