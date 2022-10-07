@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 
@@ -47,8 +49,27 @@ public class KitManager {
             armor[1] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.leggings")));
             armor[0] = new ItemStack(Material.getMaterial(currentKitConfig.getString("armor.boots")));
 
+            // Add effects to kit
+            PotionEffect[] potionEffects = new PotionEffect[currentKitConfig.getStringList("effects").size()];
+            for (int i = 0; i < currentKitConfig.getStringList("effects").size(); i++) {
+                String[] effectSplit = currentKitConfig.getStringList("effects").get(i).split(",");
+                PotionEffectType effectType = PotionEffectType.getByName(effectSplit[0]);
+
+                // Check if the duration is infinite (-1), if so set it to the max value
+                // if not, convert it to seconds
+                int duration = Integer.parseInt(effectSplit[1]);
+                if (duration == -1) {
+                    duration = Integer.MAX_VALUE;
+                } else {
+                    duration *= 20;
+                }
+
+                int amplifier = Integer.parseInt(effectSplit[2]) - 1;
+                potionEffects[i] = new PotionEffect(effectType, duration, amplifier, false, false);
+            }
+
             // Create kit and add to kits
-            Kit kit = new Kit(kitName, displayName, icon, items, armor);
+            Kit kit = new Kit(kitName, displayName, icon, items, armor, potionEffects);
             kits.put(kitName, kit);
         }
 

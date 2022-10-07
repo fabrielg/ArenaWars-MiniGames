@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -59,6 +60,11 @@ public class PlayerManager {
                 return itemStack;
             }).toArray(ItemStack[]::new));
 
+            // Add potion effects
+            for (PotionEffect potionEffect : kit.getPotionEffects()) {
+                player.addPotionEffect(potionEffect);
+            }
+
             return true;
         }
         return false;
@@ -109,10 +115,12 @@ public class PlayerManager {
             player.setExp(0);
             player.setHealth(20);
             player.setFoodLevel(20);
+            player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
         } else {
             giveSpectatorItems(player);
             player.teleport(gameManager.getArenaManager().getArena().getSpawn());
             player.setGameMode(GameMode.SPECTATOR);
+            player.getActivePotionEffects().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
         }
 
     }

@@ -3,7 +3,7 @@ game:
   min-players: 2
 
 kits:
-  Barbarian:
+  Default:
     displayname: "§cBarbarian"
     icon: "DIAMOND_SWORD"
     items:
@@ -13,6 +13,12 @@ kits:
       chestplate: "DIAMOND_CHESTPLATE"
       leggings: "DIAMOND_LEGGINGS"
       boots: "DIAMOND_BOOTS"
+
+    # The time is in seconds and the amplifier is the level of the potion effect
+    # Example : "SPEED,10,2" will give the player speed 2 for 10 seconds
+    # Set time to -1 to make it permanent
+    effects: []
+
 
   Archer:
     displayname: "§eArcher"
@@ -26,6 +32,23 @@ kits:
       chestplate: "IRON_CHESTPLATE"
       leggings: "LEATHER_LEGGINGS"
       boots: "IRON_BOOTS"
+    effects:
+      - "SPEED,-1,1"
+
+  Ninja:
+    displayname: "§8Ninja"
+    icon: "ARROW"
+    items:
+      - "IRON_SWORD,1,0"
+    armor:
+      helmet: "LEATHER_HELMET"
+      chestplate: "IRON_CHESTPLATE"
+      leggings: "LEATHER_LEGGINGS"
+      boots: "GOLDEN_BOOTS"
+    effects:
+      - "SPEED,-1,3"
+      - "INVISIBILITY,45,1"
+
 arena:
   name: "Arena"
   world: "world"

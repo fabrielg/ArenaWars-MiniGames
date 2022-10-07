@@ -27,7 +27,7 @@ public class PlayerJoinQuitListener implements Listener {
 
         if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
             Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + gameManager.getMaxPlayers() + "§8)");
-            gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Barbarian"));
+            gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Default"));
         }
 
         // Check if players count is enough to start the game
