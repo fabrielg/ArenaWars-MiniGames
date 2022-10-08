@@ -10,9 +10,9 @@ kits:
       - "DIAMOND_SWORD,1,0"
     armor:
       helmet: "DIAMOND_HELMET"
-      chestplate: "DIAMOND_CHESTPLATE"
-      leggings: "DIAMOND_LEGGINGS"
-      boots: "DIAMOND_BOOTS"
+      chestplate: "IRON_CHESTPLATE"
+      leggings: "IRON_LEGGINGS"
+      boots: "IRON_BOOTS"
 
     # The time is in seconds and the amplifier is the level of the potion effect
     # Example : "SPEED,10,2" will give the player speed 2 for 10 seconds
@@ -48,6 +48,30 @@ kits:
     effects:
       - "SPEED,-1,3"
       - "INVISIBILITY,45,1"
+
+  Glacier:
+    displayname: "§eGlacier"
+    icon: "ICE_PACKED"
+    items:
+      - "SNOWBALL,16,1"
+      - "SNOWBALL,16,2"
+      - "SNOWBALL,16,3"
+      - "SNOWBALL,16,4"
+      - "SNOWBALL,16,5"
+      - "SNOWBALL,16,6"
+      - "SNOWBALL,16,7"
+      - "SNOWBALL,16,8"
+      - "IRON_AXE,1,0"
+    handoff: "SHIELD,1,1"
+    armor:
+      helmet: "DIAMOND_HELMET"
+      chestplate: "IRON_CHESTPLATE"
+      leggings: "CHAINMAIL_LEGGINGS"
+      boots: "LEATHER_BOOTS"
+    effects:
+      - "RESISTANCE,-1,1"
+      - "SPEED,-1,1"
+      - "GLOWING,-1,1"
 
 arena:
   name: "Arena"

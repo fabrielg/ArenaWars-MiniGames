@@ -31,6 +31,12 @@ public class GameProgressCountdownTask extends BukkitRunnable {
             Bukkit.broadcastMessage(gameManager.getPrefix() + "§eThe game will end in §6" + time + " §eseconds!");
         }
 
+        // Check if the game should end
+        if (gameManager.getGameState() != GameState.INGAME) {
+            this.cancel();
+            return;
+        }
+
         time--;
     }
 }

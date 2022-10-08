@@ -120,7 +120,7 @@ public class PlayerManager {
     }
 
     public void setPlayerState(Player player, GameState gameState) {
-        if (Bukkit.getOnlinePlayers().size() < gameManager.getMaxPlayers() && (gameState == GameState.LOBBY || gameState == GameState.STARTING)) {
+        if (gameState == GameState.LOBBY || gameState == GameState.STARTING || gameState == GameState.RESTARTING) {
             giveLobbyItems(player);
             player.teleport(gameManager.getArenaManager().getArena().getLobby());
             player.setGameMode(GameMode.SURVIVAL);

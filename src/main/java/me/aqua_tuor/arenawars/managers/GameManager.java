@@ -1,11 +1,11 @@
 package me.aqua_tuor.arenawars.managers;
 
-import jdk.internal.org.jline.reader.ConfigurationPath;
 import me.aqua_tuor.arenawars.ArenaWars;
 import me.aqua_tuor.arenawars.kits.Kit;
 import me.aqua_tuor.arenawars.tasks.GameProgressCountdownTask;
 import me.aqua_tuor.arenawars.tasks.GameStartCountdownTask;
 import me.aqua_tuor.arenawars.tasks.GameTeleportingCountdownTask;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -43,6 +43,9 @@ public class GameManager {
         this.gameState = gameState; // set the game state
         switch (gameState) {
             case LOBBY:
+                if (getPlayerManager().getPlayerKits().size() >= minPlayers) {
+                    setGameState(GameState.STARTING);
+                }
                 break;
             case STARTING:
                 this.gameStartCountdownTask = new GameStartCountdownTask(this);
@@ -66,10 +69,21 @@ public class GameManager {
                 this.gameProgressCountdownTask.runTaskTimer(plugin, 0, 20);
                 break;
             case WON:
-                // TODO: End the game and teleport players back to the lobby
+                Bukkit.broadcastMessage(prefix + "§aThe game has ended! The winner is " + checkWinner().getName() + "!");
+                setGameState(GameState.RESTARTING);
                 break;
             case RESTARTING:
-                // TODO: Restart the game (countdown)
+                Bukkit.broadcastMessage(prefix + "§aTeleportation to Lobby");
+
+                // Clear playerlives
+                this.getPlayerManager().getPlayerLives().clear();
+
+                for (Player player : getPlayerManager().getPlayerKits().keySet()) {
+                    player.teleport(getArenaManager().getArena().getLobby());
+                    this.getPlayerManager().setPlayerState(player, getGameState());
+                    this.getPlayerManager().getPlayerLives().put(player, 3);
+                }
+                setGameState(GameState.LOBBY);
                 break;
         }
     }
@@ -120,5 +134,20 @@ public class GameManager {
 
     public GameState getGameState() {
         return gameState;
+    }
+
+    public Player checkWinner() {
+        Player winner = null;
+        for (Player player : this.getPlayerManager().getPlayerLives().keySet()) {
+            // Check if the only one player has lives left
+            if (this.getPlayerManager().getPlayerLives().get(player) > 0) {
+                if (winner == null) {
+                    winner = player;
+                } else {
+                    return null;
+                }
+            }
+        }
+        return winner;
     }
 }

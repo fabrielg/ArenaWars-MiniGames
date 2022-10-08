@@ -61,6 +61,15 @@ public class PlayerDamageListener implements Listener {
                     }
                 }
             }
+
+            // Check if there is a winner
+            if (gameManager.getGameState() == GameState.INGAME) {
+                Player winner = gameManager.checkWinner();
+                if (winner != null) {
+                    gameManager.setGameState(GameState.WON);
+                }
+            }
+
         }
     }
 

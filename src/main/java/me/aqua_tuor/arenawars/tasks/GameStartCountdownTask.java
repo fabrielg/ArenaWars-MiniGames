@@ -13,7 +13,7 @@ public class GameStartCountdownTask extends BukkitRunnable {
         this.gameManager = gameManager;
     }
 
-    private int timer = 10;
+    private int timer = 20;
 
     @Override
     public void run() {
@@ -26,7 +26,7 @@ public class GameStartCountdownTask extends BukkitRunnable {
             return;
         }
 
-        if (timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1) {
+        if (timer == 20 || timer == 15 || timer == 10 || timer == 5 || timer == 4 || timer == 3 || timer == 2 || timer == 1) {
             Bukkit.broadcastMessage(gameManager.prefix + "You will be teleported in " + timer + " seconds!");
         }
 
