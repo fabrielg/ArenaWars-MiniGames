@@ -11,13 +11,15 @@ public class Arena {
     private Location spawn;
     private Location lobby;
     private Location[] region;
+    private Location[] respawns;
 
-    public Arena(String name, World world, Location spawn, Location lobby, Location[] region) {
+    public Arena(String name, World world, Location spawn, Location lobby, Location[] region, Location[] respawns) {
         this.name = name;
         this.world = world;
         this.spawn = spawn;
         this.lobby = lobby;
         this.region = region;
+        this.respawns = respawns;
     }
 
     /** @return name of the arena */
@@ -45,4 +47,12 @@ public class Arena {
         return region;
     }
 
+    /** @return respawns of the arena */
+    public Location[] getRespawns() {
+        return respawns;
+    }
+
+    public Location getRandomRespawn() {
+        return respawns[(int) (Math.random() * respawns.length)];
+    }
 }

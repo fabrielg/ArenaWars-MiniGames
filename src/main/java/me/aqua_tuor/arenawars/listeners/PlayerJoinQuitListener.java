@@ -28,6 +28,7 @@ public class PlayerJoinQuitListener implements Listener {
         if (gameManager.getGameState() == GameState.LOBBY || gameManager.getGameState() == GameState.STARTING) {
             Bukkit.broadcastMessage("§6" + player.getName() + " §ejoined the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + gameManager.getMaxPlayers() + "§8)");
             gameManager.getPlayerManager().addPlayerKit(player, gameManager.getKitManager().getKit("Default"));
+            gameManager.getPlayerManager().addPlayerLives(player, 3);
         }
 
         // Check if players count is enough to start the game
@@ -48,6 +49,7 @@ public class PlayerJoinQuitListener implements Listener {
             Bukkit.broadcastMessage("§6" + player.getName() + " §eleft the game! §8(§6" + Bukkit.getOnlinePlayers().size() + "§8/§c" + gameManager.getMaxPlayers() + "§8)");
         }
         gameManager.getPlayerManager().getPlayerKits().remove(player);
+        gameManager.getPlayerManager().getPlayerLives().remove(player);
     }
 
 }

@@ -17,14 +17,20 @@ public class PlayerManager {
 
     private final GameManager gameManager;
     private HashMap<Player, Kit> playerKits;
+    private HashMap<Player, Integer> playerLives;
 
-    public PlayerManager(GameManager gameManager, HashMap<Player, Kit> playerKits) {
+    public PlayerManager(GameManager gameManager, HashMap<Player, Kit> playerKits, HashMap<Player, Integer> playerLives) {
         this.gameManager = gameManager;
         this.playerKits = playerKits;
+        this.playerLives = playerLives;
     }
 
     public HashMap<Player, Kit> getPlayerKits() {
         return playerKits;
+    }
+
+    public HashMap<Player, Integer> getPlayerLives() {
+        return playerLives;
     }
 
     public void addPlayerKit(Player player, Kit kit) {
@@ -74,6 +80,14 @@ public class PlayerManager {
         for (Player player : playerKits.keySet()) {
             System.out.println(playerKits);
             giveKit(player, playerKits.get(player).getName());
+        }
+    }
+
+    public void addPlayerLives(Player player, int lives) {
+        if (playerLives.containsKey(player)) {
+            playerLives.replace(player, lives);
+        } else {
+            playerLives.put(player, lives);
         }
     }
 

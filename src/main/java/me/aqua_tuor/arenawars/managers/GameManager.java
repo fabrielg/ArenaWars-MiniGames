@@ -31,7 +31,7 @@ public class GameManager {
     public GameManager(ArenaWars plugin) {
         this.plugin = plugin;
         this.blockManager = new BlockManager(this);
-        this.playerManager = new PlayerManager(this, new HashMap<Player, Kit>());
+        this.playerManager = new PlayerManager(this, new HashMap<Player, Kit>(), new HashMap<Player, Integer>());
         this.kitManager = new KitManager(this);
         this.arenaManager = new ArenaManager(this);
         this.maxPlayers = plugin.getConfig().getInt("game.max-players");

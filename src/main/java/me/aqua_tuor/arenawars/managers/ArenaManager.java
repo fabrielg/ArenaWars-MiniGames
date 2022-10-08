@@ -5,8 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.HashMap;
-
 public class ArenaManager {
 
     private final GameManager gameManager;
@@ -31,7 +29,15 @@ public class ArenaManager {
         Location[] region = new Location[2];
         region[0] = new Location(world, Double.parseDouble(regionStringMin[0]), Double.parseDouble(regionStringMin[1]), Double.parseDouble(regionStringMin[2]));
         region[1] = new Location(world, Double.parseDouble(regionStringMax[0]), Double.parseDouble(regionStringMax[1]), Double.parseDouble(regionStringMax[2]));
-        arena = new Arena(name, world, spawn, lobby, region);
+
+        // Get the arena respawns
+        Location[] respawns = new Location[arenaConfig.getStringList("respawns").size()];
+        for (int i = 0; i < arenaConfig.getStringList("respawns").size(); i++) {
+            String[] respawnString = arenaConfig.getStringList("respawns").get(i).split(",");
+            respawns[i] = new Location(world, Double.parseDouble(respawnString[0]), Double.parseDouble(respawnString[1]), Double.parseDouble(respawnString[2]), Float.parseFloat(respawnString[3]), Float.parseFloat(respawnString[4]));
+        }
+
+        arena = new Arena(name, world, spawn, lobby, region, respawns);
     }
 
     public Arena getArena() {
