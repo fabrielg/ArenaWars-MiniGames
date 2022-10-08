@@ -3,6 +3,7 @@ package me.aqua_tuor.arenawars.managers;
 import jdk.internal.org.jline.reader.ConfigurationPath;
 import me.aqua_tuor.arenawars.ArenaWars;
 import me.aqua_tuor.arenawars.kits.Kit;
+import me.aqua_tuor.arenawars.tasks.GameProgressCountdownTask;
 import me.aqua_tuor.arenawars.tasks.GameStartCountdownTask;
 import me.aqua_tuor.arenawars.tasks.GameTeleportingCountdownTask;
 import org.bukkit.entity.Player;
@@ -20,6 +21,7 @@ public class GameManager {
 
     private GameStartCountdownTask gameStartCountdownTask;
     private GameTeleportingCountdownTask gameTeleportingCountdownTask;
+    private GameProgressCountdownTask gameProgressCountdownTask;
 
     private int maxPlayers;
     private int minPlayers;
@@ -60,7 +62,8 @@ public class GameManager {
                 this.gameTeleportingCountdownTask.runTaskTimer(plugin, 0, 20);
                 break;
             case INGAME:
-                // TODO: ...
+                this.gameProgressCountdownTask = new GameProgressCountdownTask(this);
+                this.gameProgressCountdownTask.runTaskTimer(plugin, 0, 20);
                 break;
             case WON:
                 // TODO: End the game and teleport players back to the lobby
@@ -81,6 +84,14 @@ public class GameManager {
 
     public GameStartCountdownTask getGameStartCountdownTask() {
         return gameStartCountdownTask;
+    }
+
+    public GameTeleportingCountdownTask getGameTeleportingCountdownTask() {
+        return gameTeleportingCountdownTask;
+    }
+
+    public GameProgressCountdownTask getGameProgressCountdownTask() {
+        return gameProgressCountdownTask;
     }
 
     public KitManager getKitManager() {
