@@ -60,7 +60,6 @@ public class GameManager {
                 for (Player player : this.getPlayerManager().getPlayerKits().keySet()) {
                     player.sendTitle("§6Teleporting...", "§7Be ready for battle in §e§l15 seconds§7", 10, 70, 20);
                 }
-
                 this.gameTeleportingCountdownTask = new GameTeleportingCountdownTask(this);
                 this.gameTeleportingCountdownTask.runTaskTimer(plugin, 0, 20);
                 break;
